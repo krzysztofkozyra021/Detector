@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detektor Znaków Drogowych (MVP)</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detektor Znaków Drogowych</h1>
+        
+        <form id="upload-form">
+            <input type="file" id="file-input" accept=".png, .jpg, .jpeg, .webp" required>
+            <button type="submit">Rozpoznaj Znak</button>
+        </form>
+        
+        <div id="loading" style="display: none;">Przetwarzanie...</div>
+        
+        <div id="result"></div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

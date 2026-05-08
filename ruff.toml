@@ -1,0 +1,5 @@
+exclude = [
+    "venv",
+    "_strip_comments.py",
+    "*.ipynb",
+]
