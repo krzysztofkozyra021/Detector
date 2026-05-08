@@ -2,9 +2,9 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 
 
-def create_model(input_shape=(64, 64, 3), num_classes=43):
+def create_model(input_shape=(64, 64, 3), num_classes=21):
     """
-    Creates a CNN model for GTSRB 43-class classification.
+    Creates a CNN model for Polish traffic signs (21-class) classification.
     Expects input shape of 64x64 RGB images.
     """
     model = models.Sequential(

@@ -84,6 +84,8 @@ opencv/
 # Comparison results
 comparison_*.csv
 
-# GTSRB Dataset
+# Datasets
 GTSRB/
 gtsrb-german-traffic-sign.zip
+polish-dataset/
+polish-traffic-signs-dataset.zip

@@ -1,11 +1,12 @@
 import cv2
+import tensorflow as tf
 import numpy as np
-from gtsrb_mapping import get_sign_name
+from sign_mapping import get_sign_name, NUM_CLASSES
 
 
 def is_speed_limit(class_id):
-    """Returns True if the class ID represents a speed limit sign (GTSRB 0-8)."""
-    return 0 <= class_id <= 8
+    """Returns True if the class ID represents a speed limit sign (B-33 is class 12)."""
+    return class_id == 12
 
 
 def preprocess_crop(crop):

@@ -3,15 +3,15 @@ import os
 from model import create_model
 
 
-def train_real_model(dataset_dir="GTSRB", batch_size=32, epochs=10):
-    train_dir = os.path.join(dataset_dir, "Train")
-
+def train_real_model(dataset_dir="polish-dataset", batch_size=32, epochs=10):
+    train_dir = os.path.join(dataset_dir, "classification")
+    
     if not os.path.exists(train_dir):
         print(f"Error: Could not find training directory at {train_dir}.")
-        print("Please ensure the dataset is extracted and 'Train' folder is present.")
+        print("Please ensure the dataset is extracted and 'classification' folder is present.")
         return
 
-    print("Loading GTSRB dataset...")
+    print("Loading Polish Traffic Signs dataset...")
 
     # Keras loads images and infers labels from subdirectories (0, 1, 2... 42)
     train_dataset = tf.keras.utils.image_dataset_from_directory(
@@ -51,7 +51,7 @@ def train_real_model(dataset_dir="GTSRB", batch_size=32, epochs=10):
     val_dataset = val_dataset.cache().prefetch(buffer_size=AUTOTUNE)
 
     print("Creating model...")
-    model = create_model(input_shape=(64, 64, 3), num_classes=43)
+    model = create_model(input_shape=(64, 64, 3), num_classes=21)
 
     print("Starting training...")
     model.fit(
