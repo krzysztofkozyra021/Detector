@@ -5,14 +5,12 @@ from detector import detect_signs
 from model import load_trained_model
 
 app = Flask(__name__)
-# Load the model once when the app starts
-model = load_trained_model("model.h5")
+model = load_trained_model("polskie_znaki_model_92.pth")
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -23,14 +21,12 @@ def upload():
     if file.filename == "":
         return jsonify({"error": "Nie wybrano pliku"}), 400
 
-    # Validation for webp, png, jpg formats
     if not file.filename.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
         return jsonify(
             {"error": "Niepoprawny format pliku. Obsługiwane są tylko PNG, JPG i WebP."}
         ), 400
 
     try:
-        # Read image
         file_bytes = np.frombuffer(file.read(), np.uint8)
         img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
@@ -54,7 +50,6 @@ def upload():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

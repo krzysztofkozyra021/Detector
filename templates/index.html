@@ -3,21 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detektor Znaków Drogowych (MVP)</title>
+    <title>Detektor Znaków Drogowych</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Detektor Znaków Drogowych</h1>
+        <header>
+            <h1>Detektor Znaków Drogowych</h1>
+            <p>Szybkie i precyzyjne rozpoznawanie polskich znaków drogowych</p>
+        </header>
         
-        <form id="upload-form">
-            <input type="file" id="file-input" accept=".png, .jpg, .jpeg, .webp" required>
-            <button type="submit">Rozpoznaj Znak</button>
-        </form>
+        <main>
+            <form id="upload-form">
+                <div class="upload-zone" id="drop-zone">
+                    <input type="file" id="file-input" accept=".png, .jpg, .jpeg, .webp" required hidden>
+                    <div class="upload-content" id="upload-content">
+                        <div class="icon-placeholder"></div>
+                        <span>Kliknij lub przeciągnij zdjęcie tutaj</span>
+                        <p class="hint">Obsługiwane formaty: PNG, JPG, WebP</p>
+                    </div>
+                    <div id="preview-container" style="display: none;">
+                        <div class="image-wrapper" id="image-wrapper">
+                            <img id="image-preview" src="" alt="Podgląd zdjęcia">
+                            <div id="selection-box" class="selection-box" style="display: none;"></div>
+                        </div>
+                        <div id="remove-image" class="remove-btn">×</div>
+                    </div>
+                </div>
+                
+                <div id="selection-hint" class="selection-hint" style="display: none;">
+                    Możesz zaznaczyć konkretny obszar na zdjęciu, aby go przeanalizować
+                </div>
+                
+                <button type="submit" id="submit-btn" disabled>Analizuj Zdjęcie</button>
+            </form>
+            
+            <div id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <span>Trwa analiza zdjęcia...</span>
+            </div>
+            
+            <div id="result"></div>
+        </main>
         
-        <div id="loading" style="display: none;">Przetwarzanie...</div>
-        
-        <div id="result"></div>
+        <footer>
+            <p>&copy; 2026 AI Traffic Sign Detector</p>
+        </footer>
     </div>
     <script src="/static/script.js"></script>
 </body>
