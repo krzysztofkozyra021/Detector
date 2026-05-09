@@ -315,6 +315,15 @@ def detect_signs(image, model, confidence_threshold=0.85):
     print(f"Po NMS+dominance zostalo: {len(final)}")
 
     return [
-        {"class_name": r["class_name"], "confidence": round(r["confidence"], 4)}
+        {
+            "class_name": r["class_name"],
+            "confidence": round(r["confidence"], 4),
+            "bbox": {
+                "x": int(r["bbox"]["x"]),
+                "y": int(r["bbox"]["y"]),
+                "w": int(r["bbox"]["w"]),
+                "h": int(r["bbox"]["h"]),
+            },
+        }
         for r in final
     ]
