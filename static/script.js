@@ -233,6 +233,12 @@ uploadForm.addEventListener('submit', async (e) => {
     resultDiv.style.display = 'none';
     loadingDiv.style.display = 'flex';
     submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="spinner-small" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+        </svg>
+        Analizowanie...
+    `;
     clearDetectionBoxes();
 
     const formData = new FormData();
@@ -257,16 +263,30 @@ uploadForm.addEventListener('submit', async (e) => {
         const data = await response.json();
         loadingDiv.style.display = 'none';
         submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Analizuj zdjęcie
+        `;
 
         if (!response.ok) {
             resultDiv.innerHTML = `<div class="error"><strong>Błąd:</strong> ${data.error}</div>`;
         } else {
-            let html = `<h3>Wyniki analizy:</h3>`;
+            let html = `
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Wyniki analizy
+                </h3>`;
 
             if (data.count > 0) {
                 data.predictions.forEach(p => {
                     html += `
-                        <div class="prediction-item">
+                        <div class="prediction-item" style="animation-delay: ${data.predictions.indexOf(p) * 0.1}s">
                             <span class="prediction-name">${p.class_name}</span>
                             <span class="prediction-confidence">${(p.confidence * 100).toFixed(1)}%</span>
                         </div>`;
@@ -275,7 +295,11 @@ uploadForm.addEventListener('submit', async (e) => {
                 // Rysuj boxy na obrazku
                 data.predictions.forEach(p => drawDetectionBox(p));
             } else {
-                html += "<p>Nie wykryto żadnych znaków na wybranym obszarze.</p>";
+                html += `
+                    <div class="no-results">
+                        <p>Nie wykryto żadnych znaków na wybranym obszarze.</p>
+                        <span class="hint">Spróbuj przesłać inne zdjęcie lub zaznaczyć obszar dokładniej.</span>
+                    </div>`;
             }
 
             resultDiv.innerHTML = html;
@@ -286,6 +310,13 @@ uploadForm.addEventListener('submit', async (e) => {
     } catch (err) {
         loadingDiv.style.display = 'none';
         submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Analizuj zdjęcie
+        `;
         resultDiv.innerHTML = `<div class="error"><strong>Wystąpił błąd:</strong> ${err.message}</div>`;
         resultDiv.style.display = 'block';
     }

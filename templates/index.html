@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detektor Znaków Drogowych</title>
+    <title>Sign Detector — Inteligentne Rozpoznawanie Znaków</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Zaawansowany system rozpoznawania polskich znaków drogowych.">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Detektor Znaków Drogowych</h1>
+            <h1>Sign Detector</h1>
             <p>Szybkie i precyzyjne rozpoznawanie polskich znaków drogowych</p>
         </header>
         
@@ -18,39 +21,54 @@
             <form id="upload-form">
                 <div class="upload-zone" id="drop-zone">
                     <input type="file" id="file-input" accept=".png, .jpg, .jpeg, .webp" required hidden>
+                    
                     <div class="upload-content" id="upload-content">
-                        <div class="icon-placeholder"></div>
-                        <span>Kliknij lub przeciągnij zdjęcie tutaj</span>
-                        <p class="hint">Obsługiwane formaty: PNG, JPG, WebP</p>
+                        <div class="icon-placeholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <span>Kliknij lub przeciągnij zdjęcie</span>
+                        <p class="hint">PNG, JPG lub WebP (max. 10MB)</p>
                     </div>
+
                     <div id="preview-container" style="display: none;">
                         <div class="image-wrapper" id="image-wrapper">
-                            <img id="image-preview" src="" alt="Podgląd zdjęcia">
+                            <img id="image-preview" src="" alt="Podgląd przesłanego zdjęcia">
                             <div id="selection-box" class="selection-box" style="display: none;"></div>
                         </div>
-                        <div id="remove-image" class="remove-btn">×</div>
+                        <div id="remove-image" class="remove-btn" title="Usuń zdjęcie">&times;</div>
                     </div>
                 </div>
                 
                 <div id="selection-hint" class="selection-hint" style="display: none;">
-                    Możesz zaznaczyć konkretny obszar na zdjęciu, aby go przeanalizować
+                    <strong>Wskazówka:</strong> Możesz zaznaczyć konkretny znak na zdjęciu, aby wymusić jego analizę.
                 </div>
                 
-                <button type="submit" id="submit-btn" disabled>Analizuj Zdjęcie</button>
+                <button type="submit" id="submit-btn" disabled>
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Analizuj zdjęcie
+                </button>
             </form>
             
             <div id="loading" style="display: none;">
                 <div class="spinner"></div>
-                <span>Trwa analiza zdjęcia...</span>
+                <span>Przetwarzanie obrazu...</span>
             </div>
             
-            <div id="result"></div>
+            <div id="result" style="display: none;"></div>
         </main>
         
         <footer>
-            <p>&copy; 2026 AI Traffic Sign Detector</p>
+            <p>&copy; 2026 Traffic Sign Detector — Crafted with precision</p>
         </footer>
     </div>
+    
     <script src="/static/script.js"></script>
 </body>
 </html>
