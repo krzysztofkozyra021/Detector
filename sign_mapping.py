@@ -1,9 +1,3 @@
-"""
-Mapowanie kodów znaków drogowych na nazwy w języku polskim
-WERSJA: 92 KLASY - PEŁNY DATASET KAGGLE
-"""
-
-# Słownik wszystkich 92 klas z notebooka kaggle
 SIGN_MAPPING = {
     0: ("A-1", "Niebezpieczny zakręt w prawo"),
     1: ("A-11", "Nierówna droga"),
@@ -98,29 +92,27 @@ SIGN_MAPPING = {
     90: ("G-1a", "Słupek wskaźnikowy - trzy kreski po prawej stronie"),
     91: ("G-3", "Krzyż św. Andrzeja przed przejazdem kolejowym"),
 }
-
-# Słownik odwrotny: nazwa -> index
 NAZWA_DO_INDEX = {v[0]: k for k, v in SIGN_MAPPING.items()}
 
+
 def get_sign_name(index):
-    """Zwróć nazwę znaku po indeksie"""
     if index in SIGN_MAPPING:
         kod, nazwa = SIGN_MAPPING[index]
         return f"{kod} ({nazwa})"
     return "Nieznany znak"
 
+
 def get_sign_code(index):
-    """Zwróć kod znaku po indeksie"""
     if index in SIGN_MAPPING:
         kod, nazwa = SIGN_MAPPING[index]
         return kod
     return "Unknown"
 
+
 def is_speed_limit(index):
-    """Sprawdź czy znak to ograniczenie prędkości"""
     code = get_sign_code(index)
     return code in ["B-33", "B-43", "D-51"]
 
-# Lista wszystkich klas w kolejności
+
 KLASY = sorted(SIGN_MAPPING.keys())
 NUM_CLASSES = len(KLASY)

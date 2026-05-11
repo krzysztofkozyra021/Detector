@@ -10,39 +10,29 @@ def test_performance():
     if model is None:
         print("Model not found. Run train.py first.")
         return
-
-    # Create a dummy image representing a typical street photo
     img = np.random.randint(0, 255, (600, 800, 3), dtype=np.uint8)
-
     print("Warming up model...")
     _ = detect_signs(img, model)
-
     print("\nTesting Inference Time...")
     start = time.time()
     _ = detect_signs(img, model)
     end = time.time()
     inf_time_ms = (end - start) * 1000
-
     print(f"Inference Time: {inf_time_ms:.2f} ms")
     if inf_time_ms <= 500:
         print("PASS: Inference time <= 500 ms")
     else:
         print("FAIL: Inference time > 500 ms")
-
     print("\nTesting Repeatability (100 runs)...")
     results = []
     for _ in range(100):
         res = detect_signs(img, model)
-        # Store just the classes detected and their confidences rounded to 2 decimal places
         signature = tuple([(r["class_name"], round(r["confidence"], 2)) for r in res])
         results.append(signature)
-
-    # Count occurrences of the most common result
     from collections import Counter
 
     counts = Counter(results)
     most_common = counts.most_common(1)[0]
-
     repeatability = (most_common[1] / 100) * 100
     print(f"Repeatability: {repeatability}%")
     if repeatability >= 95:
