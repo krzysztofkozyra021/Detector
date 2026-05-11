@@ -47,7 +47,6 @@ ehthumbs.db
 Thumbs.db
 
 # Models and large files
-*.pth
 *.pt
 *.h5
 *.hdf5
@@ -74,9 +73,6 @@ temp/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# PyTorch
-*.pth
 
 # OpenCV
 opencv/
